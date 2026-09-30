@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nīr-Garbha | Sensor Control Center</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Leaflet Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+            <div class="brand">
+                <div class="brand-left">
+                    <img src="ChatGPT Image Sep 30, 2026, 10_03_51 PM.png" alt="Nīra-Garbha Logo" class="brand-logo">
+
+                    <div class="brand-text">
+                        <h1>Nīr-Garbha</h1>
+                        <p>Seafloor Intelligence</p>
+                    </div>
+                </div>
+
+                <button id="sidebarToggle" class="sidebar-toggle-btn" title="Toggle Sidebar">
+                    <span class="toggle-icon">◀</span>
+                </button>
+            </div>
+
+            <nav>
+
+                <button class="nav-btn active" data-page="dashboard" title="Dashboard">
+                    <span class="nav-icon">◈</span>
+                    <span class="nav-text">Dashboard</span>
+                </button>
+
+                <button class="nav-btn" data-page="live" title="Live Sensor">
+                    <span class="nav-icon">⌁</span>
+                    <span class="nav-text">Live Sensor</span>
+                </button>
+
+                <button class="nav-btn" data-page="mapping" title="Mapping">
+                    <span class="nav-icon">⌖</span>
+                    <span class="nav-text">Mapping</span>
+                </button>
+
+                <button class="nav-btn" data-page="mission" title="Mission Control">
+                    <span class="nav-icon">◎</span>
+                    <span class="nav-text">Mission Control</span>
+                </button>
+
+                <button class="nav-btn" data-page="data" title="Data Log">
+                    <span class="nav-icon">▤</span>
+                    <span class="nav-text">Data Log</span>
+                </button>
+
+                <button class="nav-btn" data-page="system" title="System">
+                    <span class="nav-icon">⚙</span>
+                    <span class="nav-text">System</span>
+                </button>
+
+            </nav>
+
+            <div class="connection-box" title="Sensor Connected: NG-SF-001">
+
+                <div class="connection-title">
+                    <span class="online-dot"></span>
+                    <span class="connection-text">Sensor Connected</span>
+                </div>
+
+                <p>NG-SF-001</p>
+                <small>Acoustic / USB Interface</small>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN -->
+        <main class="main">
+
+            <!-- TOP BAR -->
+            <header class="topbar">
+
+                <div class="topbar-left">
+                    <button id="topbarSidebarToggle" class="topbar-toggle-btn" title="Toggle Sidebar">
+                        ☰
+                    </button>
+                    <div>
+                        <p class="eyebrow">
+                            DEEP OCEAN SENSOR CONTROL CENTER
+                        </p>
+
+                        <h2 id="pageTitle">
+                            Mission Dashboard
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="top-right">
+
+                    <div class="mission-status">
+                        <span class="online-dot"></span>
+                        MISSION ACTIVE
+                    </div>
+
+                    <button id="themeButton" class="theme-button">
+                        ☾
+                    </button>
+
+                    <div class="team-avatar">
+                        HG
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <section id="dashboard" class="page active">
+
+                <div class="hero">
+
+                    <div>
+
+                        <span class="badge">
+                            NĪRA-GARBHA / NG-SF-001
+                        </span>
+
+                        <h3>
+                            Seafloor Metal Detection Mission
+                        </h3>
+
+                        <p>
+                            Real-time monitoring of sensor health,
+                            underwater position, anomaly detection
+                            and survey coverage.
+                        </p>
+
+                    </div>
+
+                    <div class="mission-progress">
+
+                        <span>Survey Progress</span>
+
+                        <strong id="progressValue">
+                            64%
+                        </strong>
+
+                        <div class="progress">
+                            <div id="progressBar"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SENSOR CARDS -->
+
+                <div class="metrics">
+
+                    <div class="metric-card">
+
+                        <span>Depth</span>
+
+                        <h3>
+                            <span id="depthValue">3842.6</span>
+                            <small>m</small>
+                        </h3>
+
+                        <p class="good">
+                            ● Stable
+                        </p>
+
+                    </div>
+
+
+                    <div class="metric-card">
+
+                        <span>Magnetic Field</span>
+
+                        <h3>
+                            <span id="magneticValue">48.73</span>
+                            <small>µT</small>
+                        </h3>
+
+                        <p class="good">
+                            ● Stable baseline
+                        </p>
+
+                    </div>
+
+
+                    <div class="metric-card">
+
+                        <span>Conductivity</span>
+
+                        <h3>
+                            <span id="conductivityValue">3.86</span>
+                            <small>S/m</small>
+                        </h3>
+
+                        <p class="good">
+                            ● Normal
+                        </p>
+
+                    </div>
+
+
+                    <div class="metric-card">
+
+                        <span>Temperature</span>
+
+                        <h3>
+                            <span id="temperatureValue">2.84</span>
+                            <small>°C</small>
+                        </h3>
+
+                        <p>
+                            Deep water
+                        </p>
+
+                    </div>
+
+
+                    <div class="metric-card">
+
+                        <span>Pressure</span>
+
+                        <h3>
+                            <span id="pressureValue">385.1</span>
+                            <small>bar</small>
+                        </h3>
+
+                        <p>
+                            Depth correlated
+                        </p>
+
+                    </div>
+
+
+                    <div class="metric-card alert">
+
+                        <span>Anomaly Index</span>
+
+                        <h3>
+                            <span id="anomalyValue">72</span>
+                            <small>/100</small>
+                        </h3>
+
+                        <p class="warning">
+                            ● High priority
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MINERALS STATUS (SPECIAL FEATURE SEGMENT) -->
+                <div class="panel minerals-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <p class="eyebrow">
+                                SEAFLOOR GEOLOGICAL INVENTORY & RESOURCE TELEMETRY
+                            </p>
+
+                            <h3>
+                                ❖ Minerals Status
+                            </h3>
+                        </div>
+
+                        <div class="minerals-status-badge">
+                            <span class="offline-dot-amber"></span>
+                            <span>HARDWARE SENSOR DISCONNECTED • STATIC BASELINE</span>
+                        </div>
+
+                    </div>
+
+                    <p class="minerals-description">
+                        Deep-sea seabed mineral deposit telemetry and elemental baseline analysis. Sensor array hardware currently disconnected; displaying static reference calibration parameters.
+                    </p>
+
+                    <div class="minerals-grid">
+
+                        <!-- 1. Polymetallic Nodules -->
+                        <div class="mineral-card" data-mineral="Polymetallic Nodules">
+                            <div class="mineral-card-header">
+                                <div class="mineral-title-wrap">
+                                    <span class="mineral-icon">🪨</span>
+                                    <div>
+                                        <h4>Polymetallic Nodules</h4>
+                                        <small>Abyssal Plains (Manganese-Rich)</small>
+                                    </div>
+                                </div>
+                                <span class="mineral-badge static">STATIC</span>
+                            </div>
+
+                            <div class="mineral-metric">
+                                <div class="mineral-value">
+                                    18.45 <small>kg/m²</small>
+                                </div>
+                                <div class="mineral-grade good">
+                                    ● High Grade Deposit
+                                </div>
+                            </div>
+
+                            <div class="mineral-progress-bar">
+                                <div class="mineral-progress-fill" style="width: 78%;"></div>
+                            </div>
+
+                            <div class="mineral-composition">
+                                <span>Composition Baseline:</span>
+                                <ul>
+                                    <li><strong>Mn:</strong> 28.4%</li>
+                                    <li><strong>Ni:</strong> 1.38%</li>
+                                    <li><strong>Cu:</strong> 1.16%</li>
+                                    <li><strong>Co:</strong> 0.24%</li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <!-- 2. Hydrometallic Sulfides -->
+                        <div class="mineral-card" data-mineral="Hydrometallic Sulfides">
+                            <div class="mineral-card-header">
+                                <div class="mineral-title-wrap">
+                                    <span class="mineral-icon">🌋</span>
+                                    <div>
+                                        <h4>Hydrometallic Sulfides</h4>
+                                        <small>Hydrothermal Vent Fields</small>
+                                    </div>
+                                </div>
+                                <span class="mineral-badge static">STATIC</span>
+                            </div>
+
+                            <div class="mineral-metric">
+                                <div class="mineral-value">
+                                    12.80 <small>kg/m³</small>
+                                </div>
+                                <div class="mineral-grade cyan">
+                                    ● 24.5% Cu-Equiv
+                                </div>
+                            </div>
+
+                            <div class="mineral-progress-bar">
+                                <div class="mineral-progress-fill cyan" style="width: 65%;"></div>
+                            </div>
+
+                            <div class="mineral-composition">
+                                <span>Composition Baseline:</span>
+                                <ul>
+                                    <li><strong>Cu:</strong> 8.42%</li>
+                                    <li><strong>Zn:</strong> 11.30%</li>
+                                    <li><strong>Au:</strong> 4.8 g/t</li>
+                                    <li><strong>Ag:</strong> 120 g/t</li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <!-- 3. Ferromanganese Crusts -->
+                        <div class="mineral-card" data-mineral="Ferromanganese Crusts">
+                            <div class="mineral-card-header">
+                                <div class="mineral-title-wrap">
+                                    <span class="mineral-icon">⛰️</span>
+                                    <div>
+                                        <h4>Ferromanganese Crusts</h4>
+                                        <small>Seamount Substrate Coating</small>
+                                    </div>
+                                </div>
+                                <span class="mineral-badge static">STATIC</span>
+                            </div>
+
+                            <div class="mineral-metric">
+                                <div class="mineral-value">
+                                    52.0 <small>mm thickness</small>
+                                </div>
+                                <div class="mineral-grade yellow">
+                                    ● Moderate Density
+                                </div>
+                            </div>
+
+                            <div class="mineral-progress-bar">
+                                <div class="mineral-progress-fill yellow" style="width: 58%;"></div>
+                            </div>
+
+                            <div class="mineral-composition">
+                                <span>Composition Baseline:</span>
+                                <ul>
+                                    <li><strong>Fe:</strong> 19.8%</li>
+                                    <li><strong>Mn:</strong> 23.4%</li>
+                                    <li><strong>Ti:</strong> 1.15%</li>
+                                    <li><strong>Mo:</strong> 0.06%</li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <!-- 4. Cobalt Crust -->
+                        <div class="mineral-card" data-mineral="Cobalt Crust">
+                            <div class="mineral-card-header">
+                                <div class="mineral-title-wrap">
+                                    <span class="mineral-icon">💎</span>
+                                    <div>
+                                        <h4>Cobalt Crust</h4>
+                                        <small>Cobalt-Rich Seamount Ridge</small>
+                                    </div>
+                                </div>
+                                <span class="mineral-badge static">STATIC</span>
+                            </div>
+
+                            <div class="mineral-metric">
+                                <div class="mineral-value">
+                                    0.94 <small>% Co content</small>
+                                </div>
+                                <div class="mineral-grade purple">
+                                    ● Ultra-Rich Cobalt
+                                </div>
+                            </div>
+
+                            <div class="mineral-progress-bar">
+                                <div class="mineral-progress-fill purple" style="width: 88%;"></div>
+                            </div>
+
+                            <div class="mineral-composition">
+                                <span>Composition Baseline:</span>
+                                <ul>
+                                    <li><strong>Co:</strong> 0.94%</li>
+                                    <li><strong>Pt:</strong> 0.85 g/t</li>
+                                    <li><strong>Ni:</strong> 0.58%</li>
+                                    <li><strong>Ce:</strong> 0.16%</li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <!-- 5. Rare Earth Elements (REE) -->
+                        <div class="mineral-card ree-card" data-mineral="Rare Earth Elements">
+                            <div class="mineral-card-header">
+                                <div class="mineral-title-wrap">
+                                    <span class="mineral-icon">✨</span>
+                                    <div>
+                                        <h4>Rare Earth Elements (REE)</h4>
+                                        <small>Lanthanides, Scandium, Yttrium Sub-element Spectra</small>
+                                    </div>
+                                </div>
+                                <span class="mineral-badge highlight">PRIORITY REE</span>
+                            </div>
+
+                            <div class="mineral-metric">
+                                <div class="mineral-value">
+                                    1,940 <small>ppm (Total REE + Y)</small>
+                                </div>
+                                <div class="mineral-grade ree-glow">
+                                    ● Critical Strategic Deposit
+                                </div>
+                            </div>
+
+                            <div class="mineral-progress-bar">
+                                <div class="mineral-progress-fill ree-gradient" style="width: 92%;"></div>
+                            </div>
+
+                            <div class="ree-breakdown-grid">
+
+                                <div class="ree-item">
+                                    <div class="ree-item-title">
+                                        <span>🧪 Lanthanides</span>
+                                        <strong>1,480 <small>ppm</small></strong>
+                                    </div>
+                                    <p>Rare earth lanthanide series (La-Lu group)</p>
+                                    <div class="ree-mini-tags">
+                                        <span>Ce: 520 ppm</span>
+                                        <span>Nd: 280 ppm</span>
+                                        <span>Dy: 48 ppm</span>
+                                    </div>
+                                </div>
+
+                                <div class="ree-item">
+                                    <div class="ree-item-title">
+                                        <span>⚡ Scandium (Sc)</span>
+                                        <strong>68 <small>ppm</small></strong>
+                                    </div>
+                                    <p>Lightweight high-strength alloy trace metal</p>
+                                    <div class="ree-mini-tags">
+                                        <span>Purity: 99.4%</span>
+                                        <span>Yield: High</span>
+                                    </div>
+                                </div>
+
+                                <div class="ree-item">
+                                    <div class="ree-item-title">
+                                        <span>💎 Yttrium (Y)</span>
+                                        <strong>392 <small>ppm</small></strong>
+                                    </div>
+                                    <p>Heavy REE group associate element</p>
+                                    <div class="ree-mini-tags">
+                                        <span>Y/Ho Ratio: 28.4</span>
+                                        <span>Stable</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MAP + HEALTH -->
+
+                <div class="two-column">
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <p class="eyebrow">
+                                    LIVE POSITION
+                                </p>
+
+                                <h3>
+                                    Survey Map
+                                </h3>
+                            </div>
+
+                            <span class="map-legend">
+                                ● Sensor Path
+                            </span>
+
+                        </div>
+
+                        <div id="map"></div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <p class="eyebrow">
+                                    SENSOR HEALTH
+                                </p>
+
+                                <h3>
+                                    System Status
+                                </h3>
+                            </div>
+
+                            <span class="status-pill">
+                                ALL NOMINAL
+                            </span>
+
+                        </div>
+
+
+                        <div class="health-list">
+
+                            <div>
+                                <span>Magnetometer</span>
+                                <b class="good">ONLINE</b>
+                            </div>
+
+                            <div>
+                                <span>EMI Sensor</span>
+                                <b class="good">ONLINE</b>
+                            </div>
+
+                            <div>
+                                <span>Pressure Sensor</span>
+                                <b class="good">ONLINE</b>
+                            </div>
+
+                            <div>
+                                <span>Temperature</span>
+                                <b class="good">ONLINE</b>
+                            </div>
+
+                            <div>
+                                <span>Conductivity</span>
+                                <b class="good">ONLINE</b>
+                            </div>
+
+                            <div>
+                                <span>SD Storage</span>
+                                <b class="good">RECORDING</b>
+                            </div>
+
+                            <div>
+                                <span>Battery</span>
+                                <b class="warning">68%</b>
+                            </div>
+
+                            <div>
+                                <span>Acoustic Link</span>
+                                <b class="good">READY</b>
+                            </div>
+
+                        </div>
+
+                        <button id="markPosition" class="primary-button full">
+                            Mark Current Position
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- GRAPH + EVENTS -->
+
+                <div class="two-column">
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <p class="eyebrow">
+                                    MAGNETIC TELEMETRY
+                                </p>
+
+                                <h3>
+                                    Live Signal
+                                </h3>
+                            </div>
+
+                            <span class="live">
+                                ● LIVE
+                            </span>
+
+                        </div>
+
+                        <canvas id="signalChart"></canvas>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <p class="eyebrow">
+                                    LATEST EVENTS
+                                </p>
+
+                                <h3>
+                                    Mission Log
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+                        <div id="eventLog" class="event-log">
+
+                            <div>
+                                <time>00:17:31</time>
+                                <p>
+                                    High-priority anomaly detected.
+                                </p>
+                            </div>
+
+                            <div>
+                                <time>00:16:42</time>
+                                <p>
+                                    Position packet stored.
+                                </p>
+                            </div>
+
+                            <div>
+                                <time>00:15:20</time>
+                                <p>
+                                    Acoustic link checked.
+                                </p>
+                            </div>
+
+                            <div>
+                                <time>00:13:08</time>
+                                <p>
+                                    Survey line 04 started.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= LIVE SENSOR ================= -->
+
+            <section id="live" class="page">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        REAL-TIME TELEMETRY
+                    </p>
+
+                    <h3>
+                        Sensor Interface
+                    </h3>
+
+                    <p>
+                        Live readings from the underwater sensor package.
+                    </p>
+
+                </div>
+
+
+                <div class="sensor-grid">
+
+                    <div class="sensor-card">
+                        <span>Magnetic X</span>
+                        <strong id="magX">12.41</strong>
+                        <small>µT</small>
+                    </div>
+
+                    <div class="sensor-card">
+                        <span>Magnetic Y</span>
+                        <strong id="magY">-31.18</strong>
+                        <small>µT</small>
+                    </div>
+
+                    <div class="sensor-card">
+                        <span>Magnetic Z</span>
+                        <strong id="magZ">35.22</strong>
+                        <small>µT</small>
+                    </div>
+
+                    <div class="sensor-card">
+                        <span>EMI Response</span>
+                        <strong id="emiValue">18.7</strong>
+                        <small>relative</small>
+                    </div>
+
+                    <div class="sensor-card">
+                        <span>Conductivity</span>
+                        <strong>3.86</strong>
+                        <small>S/m</small>
+                    </div>
+
+                    <div class="sensor-card">
+                        <span>Temperature</span>
+                        <strong>2.84</strong>
+                        <small>°C</small>
+                    </div>
+
+                    <div class="sensor-card">
+                        <span>Pressure</span>
+                        <strong>385.1</strong>
+                        <small>bar</small>
+                    </div>
+
+                    <div class="sensor-card">
+                        <span>Depth</span>
+                        <strong>3842.6</strong>
+                        <small>m</small>
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>
+                            Live Sensor Packets
+                        </h3>
+
+                        <span class="badge">
+                            NG-SF-001
+                        </span>
+
+                    </div>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Time</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Depth</th>
+                                <th>Magnetic</th>
+                                <th>EMI</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="telemetryTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= MAPPING ================= -->
+
+            <section id="mapping" class="page">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        GEOSPATIAL INTELLIGENCE
+                    </p>
+
+                    <h3>
+                        Survey Mapping
+                    </h3>
+
+                    <p>
+                        Track sensor coordinates and detected anomaly zones.
+                    </p>
+
+                </div>
+
+
+                <div class="mapping-layout">
+
+                    <div class="panel map-large">
+
+                        <div id="map2"></div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <p class="eyebrow">
+                                    ANOMALIES
+                                </p>
+
+                                <h3>
+                                    Priority Zones
+                                </h3>
+                            </div>
+
+                        </div>
+
+
+                        <div class="anomaly-list">
+
+                            <div class="anomaly high">
+
+                                <strong>A-17</strong>
+
+                                <span>HIGH</span>
+
+                                <small>
+                                    38.2012° S · 74.8301° E
+                                </small>
+
+                                <b>
+                                    72 / 100
+                                </b>
+
+                            </div>
+
+
+                            <div class="anomaly medium">
+
+                                <strong>A-16</strong>
+
+                                <span>MEDIUM</span>
+
+                                <small>
+                                    38.1986° S · 74.8244° E
+                                </small>
+
+                                <b>
+                                    54 / 100
+                                </b>
+
+                            </div>
+
+
+                            <div class="anomaly low">
+
+                                <strong>A-15</strong>
+
+                                <span>LOW</span>
+
+                                <small>
+                                    38.1951° S · 74.8180° E
+                                </small>
+
+                                <b>
+                                    28 / 100
+                                </b>
+
+                            </div>
+
+                        </div>
+
+
+                        <button id="exportButton" class="primary-button full">
+                            Export Survey Data
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= MISSION ================= -->
+
+            <section id="mission" class="page">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        MISSION CONTROL
+                    </p>
+
+                    <h3>
+                        Mission Coordination
+                    </h3>
+
+                    <p>
+                        Control survey operation and deployment status.
+                    </p>
+
+                </div>
+
+
+                <div class="control-grid">
+
+                    <div class="panel">
+
+                        <h3>
+                            Deployment Control
+                        </h3>
+
+                        <button class="control-button active" id="missionButton">
+                            ● Mission Active
+                        </button>
+
+                        <button class="control-button" id="surveyButton">
+                            Start Survey Line
+                        </button>
+
+                        <button class="control-button" id="pauseButton">
+                            Pause Logging
+                        </button>
+
+                        <button class="control-button danger" id="recoveryButton">
+                            Recovery Mode
+                        </button>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <h3>
+                            Mission Parameters
+                        </h3>
+
+                        <div class="parameter">
+                            <span>Mission ID</span>
+                            <b>NG-2026-001</b>
+                        </div>
+
+                        <div class="parameter">
+                            <span>Survey Line</span>
+                            <b>04 / 07</b>
+                        </div>
+
+                        <div class="parameter">
+                            <span>Current Position</span>
+                            <b>
+                                38.2012° S,
+                                74.8301° E
+                            </b>
+                        </div>
+
+                        <div class="parameter">
+                            <span>Target Depth</span>
+                            <b>4000 m</b>
+                        </div>
+
+                        <div class="parameter">
+                            <span>Storage</span>
+                            <b>14.4 / 20 GB</b>
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <h3>
+                            Deployment Workflow
+                        </h3>
+
+                        <div class="workflow">
+
+                            <div class="step done">
+                                1
+                                <span>Deploy</span>
+                            </div>
+
+                            <div class="step done">
+                                2
+                                <span>Descend</span>
+                            </div>
+
+                            <div class="step done">
+                                3
+                                <span>Survey</span>
+                            </div>
+
+                            <div class="step current">
+                                4
+                                <span>Detect</span>
+                            </div>
+
+                            <div class="step">
+                                5
+                                <span>Recover</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= DATA ================= -->
+
+            <section id="data" class="page">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        DATA MANAGEMENT
+                    </p>
+
+                    <h3>
+                        Survey Data Log
+                    </h3>
+
+                    <p>
+                        Timestamped sensor data and coordinates.
+                    </p>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="toolbar">
+
+                        <input type="text" id="searchInput" placeholder="Search coordinates, anomaly, time...">
+
+                        <button id="downloadButton" class="secondary-button">
+                            Download CSV
+                        </button>
+
+                    </div>
+
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>#</th>
+                                <th>Time</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Depth</th>
+                                <th>Magnetic</th>
+                                <th>EMI</th>
+                                <th>Priority</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="dataTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= SYSTEM ================= -->
+
+            <section id="system" class="page">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        DEVICE CONFIGURATION
+                    </p>
+
+                    <h3>
+                        System Settings
+                    </h3>
+
+                </div>
+
+
+                <div class="settings-grid">
+
+                    <div class="panel settings">
+
+                        <h3>
+                            Sensor Configuration
+                        </h3>
+
+                        <label>
+                            Sensor ID
+
+                            <input id="sensorId" value="NG-SF-001">
+                        </label>
+
+                        <label>
+                            Sampling Rate
+
+                            <select>
+                                <option>1 Hz</option>
+                                <option>5 Hz</option>
+                                <option>10 Hz</option>
+                            </select>
+
+                        </label>
+
+                        <label>
+                            Anomaly Threshold
+
+                            <input value="60">
+                        </label>
+
+                        <label>
+                            Target Depth
+
+                            <input value="4000 m">
+                        </label>
+
+                        <button id="saveSettings" class="primary-button">
+                            Save Configuration
+                        </button>
+
+                    </div>
+
+
+                    <div class="panel settings">
+
+                        <h3>
+                            Communication
+                        </h3>
+
+                        <label>
+                            Primary Link
+
+                            <select>
+
+                                <option>
+                                    Onboard SD Logging
+                                </option>
+
+                                <option>
+                                    Acoustic Modem
+                                </option>
+
+                                <option>
+                                    RS-485 Tether
+                                </option>
+
+                            </select>
+
+                        </label>
+
+
+                        <label>
+                            Positioning
+
+                            <select>
+
+                                <option>
+                                    Surface Buoy GPS
+                                </option>
+
+                                <option>
+                                    USBL
+                                </option>
+
+                                <option>
+                                    Manual Recovery
+                                </option>
+
+                            </select>
+
+                        </label>
+
+
+                        <label>
+                            Data Format
+
+                            <select>
+                                <option>CSV</option>
+                                <option>JSON</option>
+                            </select>
+
+                        </label>
+
+
+                        <button id="testLink" class="secondary-button">
+                            Test Communication Link
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <footer>
+                Team Hydroguardians · Nīra-Garbha · Seafloor Sensor Control Interface
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <div id="toast" class="toast"></div>
+
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- YOUR JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
